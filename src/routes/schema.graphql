@@ -1,14 +1,14 @@
-type User {
+type User { # User type definition with essential fields
   id: ID!
   email: String!
 }
 
-type AuthPayload {
+type AuthPayload {  # Authentication payload returned after successful registration or login
   token: String!
   user: User!
 }
 
-type Product {
+type Product { # Product type definition with comprehensive fields for product details
   id: ID!
   name: String!
   description: String!
@@ -19,29 +19,29 @@ type Product {
 }
 
 # Input type for advanced lookups
-input ProductFilterInput {
+input ProductFilterInput { # Input type for filtering products based on various criteria
   category: String
   minPrice: Float
   maxPrice: Float
 }
 
 # Combined into a single Query block to prevent schema compilation errors
-type Query {
+type Query { # Query type definition for fetching user and product data
   me: User
   products(filter: ProductFilterInput): [Product!]!
   product(id: ID!): Product!
 }
 
-type Mutation {
+type Mutation { # Mutation type definition for user registration and login operations
   """
   The register mutation handles user signup, hashes passwords, 
   and returns an authentication token payload.
   """
-  register(email: String!, passwordPlain: String!): AuthPayload!
+  register(email: String!, passwordPlain: String!): AuthPayload! # Mutation for user registration, accepting email and plain password, returning an authentication payload
 
   """
   The login mutation authenticates existing users against 
   their stored credentials.
   """
-  login(email: String!, passwordPlain: String!): AuthPayload!
+  login(email: String!, passwordPlain: String!): AuthPayload! # Mutation for user login, accepting email and plain password, returning an authentication payload
 }

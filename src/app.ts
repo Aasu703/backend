@@ -11,7 +11,7 @@ import { resolvers as authResolvers } from "./controller/authController";
 import { productResolvers } from "./controller/productController";
 
 // ⚠️ FIX: Import from the standalone integration package instead of apollo subpaths!
-const { expressMiddleware } = require("@as-integrations/express4");
+import { expressMiddleware } from '@as-integrations/express5';
 
 const app: Application = express();
 
