@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import { ProductModel } from "../models/productModel";
 
 dotenv.config();
 
@@ -36,11 +37,11 @@ async function seed() {
 
     console.log("✅ Connected to MongoDB");
 
-    // ⚠️ Uncomment when you have Product model
-    // await Product.deleteMany({});
-    // await Product.insertMany(products);
 
-    console.log("🌱 Seed data ready (connect model to insert)");
+    await ProductModel.deleteMany({});
+    await ProductModel.insertMany(products);
+
+    console.log(" Seed data ready (connect model to insert)");
 
     process.exit(0);
   } catch (err) {
