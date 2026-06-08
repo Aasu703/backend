@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { MONGO_URI } from "../config";
 
 export async function connectdb() {
-    try {
+    try {   
         await mongoose.connect(MONGO_URI);
         console.log("Connected to MongoDB");
     } catch (err) {

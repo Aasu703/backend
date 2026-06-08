@@ -8,12 +8,40 @@ type AuthPayload {
   user: User!
 }
 
+type Product {
+  id: ID!
+  name: String!
+  description: String!
+  price: Float!
+  stock: Int!
+  category: String!
+  createdAt: String!
+}
+
+# Input type for advanced lookups
+input ProductFilterInput {
+  category: String
+  minPrice: Float
+  maxPrice: Float
+}
+
+# Combined into a single Query block to prevent schema compilation errors
 type Query {
   me: User
+  products(filter: ProductFilterInput): [Product!]!
+  product(id: ID!): Product!
 }
 
 type Mutation {
+  """
+  The register mutation handles user signup, hashes passwords, 
+  and returns an authentication token payload.
+  """
   register(email: String!, passwordPlain: String!): AuthPayload!
+
+  """
+  The login mutation authenticates existing users against 
+  their stored credentials.
+  """
   login(email: String!, passwordPlain: String!): AuthPayload!
 }
-
