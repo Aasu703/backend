@@ -1,6 +1,7 @@
 type User { # User type definition with essential fields
   id: ID!
   email: String!
+  name: String
 }
 
 type AuthPayload {  # Authentication payload returned after successful registration or login
@@ -16,6 +17,7 @@ type Product { # Product type definition with comprehensive fields for product d
   stock: Int!
   category: String!
   createdAt: String!
+  title: String
 }
 
 # Input type for advanced lookups
@@ -25,11 +27,44 @@ input ProductFilterInput { # Input type for filtering products based on various 
   maxPrice: Float
 }
 
+type PageInfo {
+  hasNextPage: Boolean!
+  endCursor: String
+}
+
+type CartItem {
+  product: Product!
+  quantity: Int!
+}
+
+type Cart {
+  id: ID!
+  userId: ID!
+  items: [CartItem!]!
+  totalPrice: Float!
+}
+
+type ProductConnection {
+  pageInfo: PageInfo!
+  edges: [ProductEdge!]!
+  nodes: [Product!]!
+}
+
+type ProductEdge {
+  cursor: String!
+  node: Product!
+}
+
 # Combined into a single Query block to prevent schema compilation errors
 type Query { # Query type definition for fetching user and product data
   me: User
   products(filter: ProductFilterInput): [Product!]!
   product(id: ID!): Product!
+  
+  users: [User!]!
+  user(id: ID!): User
+  allProducts(first: Int, after: String): ProductConnection!
+  cart(userId: ID!): Cart
 }
 
 type Mutation { # Mutation type definition for user registration and login operations
@@ -44,4 +79,4 @@ type Mutation { # Mutation type definition for user registration and login opera
   their stored credentials.
   """
   login(email: String!, passwordPlain: String!): AuthPayload! # Mutation for user login, accepting email and plain password, returning an authentication payload
-}
+}

@@ -1,4 +1,5 @@
 import { UserModel, IUser } from '../models/userModel';
+import mongoose from 'mongoose';
 
 export class UserRepository {
   async findByEmail(email: string): Promise<IUser | null> {

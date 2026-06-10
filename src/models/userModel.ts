@@ -4,6 +4,7 @@ export interface IUser extends Document { // Extending Document gives us access 
 
   id: string;
   email: string;
+  name?: string;
   passwordHash: string;
   createdAt: Date;
 }
@@ -15,6 +16,11 @@ const userSchema = new Schema<IUser>({ // Using the IUser interface to type the 
     unique: true, 
     lowercase: true, 
     trim: true 
+  },
+  name: {
+    type: String,
+    required: false,
+    default: ""
   },
   passwordHash: { 
     type: String, 
